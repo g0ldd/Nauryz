@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Наурыз мейрамы — Аниматоры</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0d6b56;
+    --teal-light: #1a8a6e;
+    --gold: #c9922a;
+    --gold-light: #e8b84b;
+    --cream: #fdf6e8;
+    --cream-dark: #f5e9cc;
+    --sky: #3b9fcc;
+    --red: #c0392b;
+    --white: #ffffff;
+    --text: #1a2e28;
+    --text-light: #4a6b60;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── ORNAMENT PATTERN ── */
+  .ornament-strip {
+    height: 18px;
+    background:
+      repeating-linear-gradient(90deg,
+        var(--gold) 0px, var(--gold) 8px,
+        var(--teal) 8px, var(--teal) 16px,
+        var(--gold-light) 16px, var(--gold-light) 24px,
+        var(--teal) 24px, var(--teal) 32px);
+    position: relative;
+  }
+  .ornament-strip::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg,
+      transparent 0px, transparent 14px,
+      rgba(255,255,255,0.3) 14px, rgba(255,255,255,0.3) 18px,
+      transparent 18px, transparent 32px);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, #0b4f3e 0%, #1a8a6e 45%, #0d6b56 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Казахский орнамент фон */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 30%, rgba(201,146,42,0.25) 0%, transparent 40%),
+      radial-gradient(circle at 85% 70%, rgba(201,146,42,0.2) 0%, transparent 40%),
+      radial-gradient(circle at 50% 100%, rgba(11,79,62,0.5) 0%, transparent 60%);
+    z-index: 0;
+  }
+
+  /* Декоративные SVG-тюльпаны */
+  .tulip-left, .tulip-right {
+    position: absolute;
+    bottom: 0;
+    width: 220px;
+    opacity: 0.18;
+    z-index: 0;
+  }
+  .tulip-left { left: -20px; transform: scaleX(-1); }
+  .tulip-right { right: -20px; }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 60px 20px 50px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,146,42,0.3);
+    border: 1.5px solid var(--gold-light);
+    color: var(--gold-light);
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 30px;
+    margin-bottom: 22px;
+    font-weight: 700;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  }
+  .hero h1 span {
+    color: var(--gold-light);
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 480px;
+    margin: 0 auto 34px;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gold);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 8px 30px rgba(201,146,42,0.45);
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(201,146,42,0.55);
+  }
+  .hero-cta svg { width: 22px; height: 22px; }
+
+  /* floating ornament diamonds */
+  .diamonds {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .diamond {
+    position: absolute;
+    width: 10px; height: 10px;
+    background: var(--gold-light);
+    transform: rotate(45deg);
+    opacity: 0.25;
+    animation: float 6s ease-in-out infinite;
+  }
+  .diamond:nth-child(1) { top: 12%; left: 10%; animation-delay: 0s; opacity: 0.2; }
+  .diamond:nth-child(2) { top: 20%; left: 80%; animation-delay: 1.5s; opacity: 0.15; }
+  .diamond:nth-child(3) { top: 65%; left: 6%; animation-delay: 3s; opacity: 0.18; }
+  .diamond:nth-child(4) { top: 55%; left: 88%; animation-delay: 0.8s; opacity: 0.2; }
+  .diamond:nth-child(5) { top: 80%; left: 45%; animation-delay: 2s; opacity: 0.12; width: 7px; height: 7px; }
+
+  @keyframes float {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(-12px); }
+  }
+
+  /* ── INTRO SECTION ── */
+  .intro {
+    background: var(--white);
+    padding: 44px 20px;
+    text-align: center;
+    border-bottom: 3px solid var(--cream-dark);
+  }
+  .intro-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+  .intro p {
+    color: var(--text-light);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+  .discount-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.9rem;
+    padding: 8px 22px;
+    border-radius: 30px;
+    margin-top: 18px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── PACKAGES SECTION ── */
+  .packages {
+    padding: 70px 20px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    text-align: center;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-bottom: 54px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 28px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 6px 30px rgba(13,107,86,0.10);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 50px rgba(13,107,86,0.18);
+  }
+  .card.featured {
+    border: 2.5px solid var(--gold);
+    box-shadow: 0 10px 40px rgba(201,146,42,0.2);
+  }
+  .card.featured:hover {
+    box-shadow: 0 22px 60px rgba(201,146,42,0.3);
+  }
+
+  .card-popular {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: var(--gold);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 13px;
+    border-radius: 20px;
+    z-index: 3;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-img-placeholder {
+    width: 100%;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .card-img-placeholder::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent, transparent 20px,
+      rgba(255,255,255,0.04) 20px, rgba(255,255,255,0.04) 40px
+    );
+  }
+  .card-img-placeholder .emoji {
+    font-size: 4rem;
+    position: relative; z-index: 1;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));
+  }
+  .card-img-placeholder .card-tier {
+    position: relative; z-index: 1;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 8px;
+  }
+
+  /* Different color schemes per card */
+  .card:nth-child(1) .card-img-placeholder { background: linear-gradient(135deg, #1a7a60, #2aaa86); }
+  .card:nth-child(2) .card-img-placeholder { background: linear-gradient(135deg, #b87e15, #d4a030); }
+  .card:nth-child(3) .card-img-placeholder { background: linear-gradient(135deg, #1a6080, #2896c0); }
+  .card:nth-child(4) .card-img-placeholder { background: linear-gradient(135deg, #7a3030, #c0392b); }
+
+  .card-body {
+    padding: 26px 26px 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+
+  .card-tagline {
+    font-size: 0.82rem;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .card-features {
+    list-style: none;
+    margin-bottom: 24px;
+    flex: 1;
+  }
+  .card-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    line-height: 1.5;
+  }
+  .card-features li:last-child { border-bottom: none; }
+  .check {
+    width: 18px; height: 18px;
+    min-width: 18px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+  .check svg { width: 10px; height: 10px; stroke: #fff; stroke-width: 2.5; fill: none; }
+
+  .card-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .price-from { font-size: 0.8rem; color: var(--text-light); font-weight: 600; }
+  .price-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--teal);
+    line-height: 1;
+  }
+  .price-currency { font-size: 1rem; font-weight: 700; color: var(--text-light); }
+
+  .card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 13px 20px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.92rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .card-btn-primary {
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(13,107,86,0.3);
+  }
+  .card-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(13,107,86,0.4);
+  }
+  .card-btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(201,146,42,0.35);
+  }
+  .card-btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(201,146,42,0.45);
+  }
+  .card-btn svg { width: 18px; height: 18px; }
+
+  /* ── EXTRAS SECTION ── */
+  .extras {
+    background: linear-gradient(160deg, var(--teal) 0%, #115244 100%);
+    padding: 70px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .extras::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent, transparent 30px,
+      rgba(255,255,255,0.025) 30px, rgba(255,255,255,0.025) 60px
+    );
+  }
+  .extras-inner {
+    position: relative; z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .extras .section-label { color: var(--gold-light); }
+  .extras .section-title { color: #fff; margin-bottom: 40px; }
+
+  .extras-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .extra-item {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 26px 22px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    transition: background 0.25s, transform 0.25s;
+  }
+  .extra-item:hover {
+    background: rgba(255,255,255,0.14);
+    transform: translateY(-4px);
+  }
+  .extra-icon { font-size: 2.4rem; margin-bottom: 12px; }
+  .extra-name {
+    font-weight: 800;
+    color: #fff;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+  .extra-desc { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+  /* ── DISCOUNT BANNER ── */
+  .discount-banner {
+    background: linear-gradient(135deg, var(--gold) 0%, #e8b84b 100%);
+    padding: 50px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .discount-banner::before {
+    content: '🌸 🌷 🌸 🌷 🌸 🌷 🌸 🌷 🌸 🌷 🌸 🌷 🌸 🌷';
+    position: absolute;
+    top: 12px; left: 0; right: 0;
+    text-align: center;
+    font-size: 1.1rem;
+    opacity: 0.3;
+    letter-spacing: 6px;
+  }
+  .discount-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    color: #fff;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative; z-index: 1;
+  }
+  .discount-banner p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+    position: relative; z-index: 1;
+  }
+  .discount-banner .hero-cta {
+    background: var(--teal);
+    box-shadow: 0 8px 30px rgba(13,107,86,0.4);
+    position: relative; z-index: 1;
+  }
+  .discount-banner .hero-cta:hover {
+    box-shadow: 0 14px 40px rgba(13,107,86,0.5);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0b3529;
+    padding: 40px 20px 30px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+  }
+  .footer-tagline {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .footer-phone {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .footer-langs {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 26px;
+  }
+  .footer-copy {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .hero { min-height: 420px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .extras-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP ORNAMENT -->
+<div class="ornament-strip"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="diamonds">
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+  </div>
+
+  <!-- Decorative tulip SVGs -->
+  <svg class="tulip-left" viewBox="0 0 220 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M110 300 C110 300 60 240 60 160 C60 100 90 60 110 40 C130 60 160 100 160 160 C160 240 110 300 110 300Z" fill="#e8b84b"/>
+    <path d="M110 300 C110 300 70 250 80 180 C88 130 100 100 110 80 C120 100 132 130 140 180 C150 250 110 300 110 300Z" fill="#d4a030"/>
+    <rect x="107" y="295" width="6" height="25" rx="3" fill="#2aaa86"/>
+    <path d="M110 310 Q90 295 75 285" stroke="#2aaa86" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M110 310 Q130 295 145 285" stroke="#2aaa86" stroke-width="4" stroke-linecap="round" fill="none"/>
+  </svg>
+
+  <svg class="tulip-right" viewBox="0 0 220 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M110 300 C110 300 60 240 60 160 C60 100 90 60 110 40 C130 60 160 100 160 160 C160 240 110 300 110 300Z" fill="#e8b84b"/>
+    <path d="M110 300 C110 300 70 250 80 180 C88 130 100 100 110 80 C120 100 132 130 140 180 C150 250 110 300 110 300Z" fill="#d4a030"/>
+    <rect x="107" y="295" width="6" height="25" rx="3" fill="#2aaa86"/>
+    <path d="M110 310 Q90 295 75 285" stroke="#2aaa86" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M110 310 Q130 295 145 285" stroke="#2aaa86" stroke-width="4" stroke-linecap="round" fill="none"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">🌷 Наурыз мейрамы 2025 🌷</div>
+    <h1>Мерекелік<span>Аниматорлар</span></h1>
+    <p class="hero-sub">Праздничные пакеты в честь Наурыза</p>
+    <p class="hero-desc">
+      Организуем незабываемый праздник Наурыз для детей и взрослых — с казахскими традициями, играми, костюмами и яркими эмоциями!
+    </p>
+    <a href="https://wa.me/77072224725" class="hero-cta">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.524 5.83L.057 23.571c-.085.33.22.635.55.55l5.74-1.466A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.674-.52-5.2-1.427l-.372-.22-3.409.871.887-3.32-.24-.384A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Заказать по WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- BOTTOM ORNAMENT -->
+<div class="ornament-strip"></div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="intro-inner">
+    <h2>🌿 Праздничные пакеты на Наурыз</h2>
+    <p>Наша команда профессиональных аниматоров создаст атмосферу настоящего Наурыза — с казахскими национальными играми, интерактивными шоу и незабываемыми моментами для всей семьи и коллектива.</p>
+    <span class="discount-tag">🎉 Скидка 10–20% в будние дни!</span>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="packages">
+  <p class="section-label">✦ наши пакеты ✦</p>
+  <h2 class="section-title">Выберите свой праздник</h2>
+  <p class="section-subtitle">Каждый пакет включает профессиональных аниматоров в казахских национальных костюмах</p>
+
+  <div class="cards-grid">
+
+    <!-- CARD 1 -->
+    <div class="card">
+      <div class="card-img-placeholder">
+        <div class="emoji">🌷</div>
+        <div class="card-tier">Пакет 1</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">«Наурыз Болсын»</div>
+        <div class="card-tagline">Базовый пакет · 1,5 часа</div>
+        <ul class="card-features">
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            1 аниматор в нац. костюме
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Казахские национальные игры
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Конкурсы и загадки о Наурызе
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Памятные фото с аниматором
+          </li>
+        </ul>
+        <div class="card-price">
+          <span class="price-from">от</span>
+          <span class="price-num">25 000</span>
+          <span class="price-currency">тг</span>
+        </div>
+        <a href="https://wa.me/77072224725?text=Здравствуйте!%20Хочу%20заказать%20пакет%20Наурыз%20Болсын" class="card-btn card-btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.524 5.83L.057 23.571c-.085.33.22.635.55.55l5.74-1.466A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.674-.52-5.2-1.427l-.372-.22-3.409.871.887-3.32-.24-.384A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Написать в WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- CARD 2 (Featured) -->
+    <div class="card featured">
+      <div class="card-popular">⭐ Хит сезона</div>
+      <div class="card-img-placeholder">
+        <div class="emoji">🎊</div>
+        <div class="card-tier">Пакет 2</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">«Той Думан»</div>
+        <div class="card-tagline">Стандарт · 2 часа</div>
+        <ul class="card-features">
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            2 аниматора в нац. костюмах
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Театрализованное Наурыз-шоу
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Казахские национальные игры
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Конкурсы с призами для детей
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Мастер-класс «Наурыз Көже»
+          </li>
+        </ul>
+        <div class="card-price">
+          <span class="price-from">от</span>
+          <span class="price-num">40 000</span>
+          <span class="price-currency">тг</span>
+        </div>
+        <a href="https://wa.me/77072224725?text=Здравствуйте!%20Хочу%20заказать%20пакет%20Той%20Думан" class="card-btn card-btn-gold">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.524 5.83L.057 23.571c-.085.33.22.635.55.55l5.74-1.466A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.674-.52-5.2-1.427l-.372-.22-3.409.871.887-3.32-.24-.384A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Написать в WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card">
+      <div class="card-img-placeholder">
+        <div class="emoji">👑</div>
+        <div class="card-tier">Пакет 3</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">«Ұлы Дала»</div>
+        <div class="card-tagline">Премиум · 3 часа</div>
+        <ul class="card-features">
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            3 аниматора + ведущий тамада
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Большое Наурыз-шоу с музыкой
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Айтыс, беташар, той-думан
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Украшение зала в нац. стиле
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Памятные подарки для детей
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Фотосессия в нац. костюмах
+          </li>
+        </ul>
+        <div class="card-price">
+          <span class="price-from">от</span>
+          <span class="price-num">65 000</span>
+          <span class="price-currency">тг</span>
+        </div>
+        <a href="https://wa.me/77072224725?text=Здравствуйте!%20Хочу%20заказать%20пакет%20Ұлы%20Дала" class="card-btn card-btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.524 5.83L.057 23.571c-.085.33.22.635.55.55l5.74-1.466A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.674-.52-5.2-1.427l-.372-.22-3.409.871.887-3.32-.24-.384A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Написать в WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- CARD 4 - Corporate -->
+    <div class="card">
+      <div class="card-img-placeholder">
+        <div class="emoji">🏢</div>
+        <div class="card-tier">Корпоратив</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">«Корпоративный»</div>
+        <div class="card-tagline">Для организаций · от 2 часов</div>
+        <ul class="card-features">
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Профессиональный ведущий
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Команда аниматоров (от 3 чел.)
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Сценарий под ваш формат
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Казахские конкурсы для взрослых
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Выездное обслуживание
+          </li>
+        </ul>
+        <div class="card-price">
+          <span class="price-from" style="font-size:0.85rem;">по запросу</span>
+        </div>
+        <a href="https://wa.me/77072224725?text=Здравствуйте!%20Интересует%20корпоративный%20Наурыз-пакет" class="card-btn card-btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.524 5.83L.057 23.571c-.085.33.22.635.55.55l5.74-1.466A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.674-.52-5.2-1.427l-.372-.22-3.409.871.887-3.32-.24-.384A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Написать в WhatsApp
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXTRAS -->
+<section class="extras">
+  <div class="extras-inner">
+    <p class="section-label">✦ дополнения ✦</p>
+    <h2 class="section-title">Дополнительные опции</h2>
+
+    <div class="extras-grid">
+      <div class="extra-item">
+        <div class="extra-icon">🎭</div>
+        <div class="extra-name">Национальные костюмы</div>
+        <div class="extra-desc">Дополнительный аниматор в красочном казахском костюме</div>
+      </div>
+      <div class="extra-item">
+        <div class="extra-icon">🎪</div>
+        <div class="extra-name">Юрта-декорация</div>
+        <div class="extra-desc">Фотозона в стиле казахской юрты с реквизитом</div>
+      </div>
+      <div class="extra-item">
+        <div class="extra-icon">🏅</div>
+        <div class="extra-name">Призы и подарки</div>
+        <div class="extra-desc">Памятные наурызовские подарки и сладости для детей</div>
+      </div>
+      <div class="extra-item">
+        <div class="extra-icon">📸</div>
+        <div class="extra-name">Фотограф</div>
+        <div class="extra-desc">Профессиональная фото и видеосъёмка праздника</div>
+      </div>
+      <div class="extra-item">
+        <div class="extra-icon">🎵</div>
+        <div class="extra-name">Живая музыка</div>
+        <div class="extra-desc">Домбрист — живое исполнение казахских народных песен</div>
+      </div>
+      <div class="extra-item">
+        <div class="extra-icon">🎈</div>
+        <div class="extra-name">Оформление шарами</div>
+        <div class="extra-desc">Украшение зала шарами в цветах казахского флага</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCOUNT BANNER -->
+<section class="discount-banner">
+  <h2>🌸 Скидка 10–20% в будние дни! 🌸</h2>
+  <p>Закажите праздник в понедельник–пятницу и сэкономьте! Успейте забронировать дату — места на Наурыз разбирают быстро.</p>
+  <a href="https://wa.me/77072224725?text=Здравствуйте!%20Хочу%20узнать%20подробнее%20о%20Наурыз-пакетах" class="hero-cta">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.524 5.83L.057 23.571c-.085.33.22.635.55.55l5.74-1.466A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.674-.52-5.2-1.427l-.372-.22-3.409.871.887-3.32-.24-.384A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    Узнать подробнее
+  </a>
+</section>
+
+<!-- ORNAMENT -->
+<div class="ornament-strip"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🌷 Аниматоры</div>
+  <div class="footer-tagline">Наурыз Мейрамы · Профессиональность · Доступность</div>
+  <div class="footer-phone">8-707-222-47-25</div>
+  <div class="footer-langs">Қаз, Рус. · Круглосуточно</div>
+  <div class="footer-copy">© 2025 · Праздничные аниматоры · Алматы</div>
+</footer>
+
+</body>
+</html>
